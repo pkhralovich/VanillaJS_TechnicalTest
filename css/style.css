@@ -1,0 +1,151 @@
+/* ## GENERAL ## */
+:root {
+    --accent-color: #22BA93;
+
+    --font-color: #0D2232;
+    --font-color-hint: #d3d3d3;
+    --font-family: "Source Sans Pro",Sans-serif;
+    
+    --font-small: 18px;
+    --font-medium: 22px;
+
+    --spacing-small: 10px;
+    --spacing-medium: 20px;
+    --spacing-large: 40px;
+
+    --breakpoint-xs: 0px;
+    --breakpoint-sm: 0px;
+    --breakpoing-md: 0px;
+    --breakpoing-lg: 0px;
+    --breakpoing-xl: 0px;
+
+    --image-size: 200px;
+    --nav-width: 300px;
+}
+
+body {
+    margin: 0;
+
+    color: var(--font-color);
+    font-family: var(--font-family);
+    font-size: var(--font-small);
+}
+
+main {
+    position: absolute;
+    left: var(--nav-width);
+    right: 0px;
+    padding: var(--spacing-large);
+
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* ## END GENERAL ## */
+
+/* ## NAV STYLE ## */
+nav {
+    position: fixed;
+    height: 100%;
+    width: var(--nav-width);
+
+    box-shadow: 0 0 14px 0 rgba(0,0,0,.1);
+}
+
+nav a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-options {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 0px;
+}
+
+.nav-option {
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+
+    padding: var(--spacing-small) var(--spacing-medium);
+}
+
+.nav-option:hover {
+    cursor: pointer;
+    color: var(--accent-color);
+}
+
+.logo {
+    padding-top: var(--spacing-medium);
+    margin: auto;
+    display: block;
+}
+/* ## NAV STYLE ## */
+
+/* ## PRODUCT LIST ## */
+.page-label {
+    color: var(--font-color-hint);
+    margin: 0;
+}
+
+.products-list {
+    max-width: 1200px;
+    padding: 0;
+}
+/* ## END PRODUCT LIST ## */
+
+/* ## LIST ELEMENT STYLE ## */
+.product-container {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    margin-bottom: var(--spacing-medium);
+}
+
+.product-container:last-child{
+    margin-bottom: 0px;
+}
+
+.product-container .product:first-child {
+    align-self: flex-start;
+}
+
+.product-container .product:last-child {
+    align-self: flex-end;
+}
+
+.product-container p {
+    margin: var(--spacing-small);
+}
+
+.product-image {
+    width: var(--image-size);
+    height: auto;
+}
+
+.product-price {
+    font-size: var(--font-medium);
+    font-weight: bold;
+}
+
+.formula {
+    flex-grow: 1;
+    display: inherit; /*Parent: Flex*/
+    align-items: center;
+}
+
+.formula-editor {
+    flex-grow: 1;
+    height: var(--image-size);
+    border: 2px dotted var(--font-color-hint);
+}
+
+.formula .arrow-right {
+    height: 75px;
+    width: auto;
+
+    margin: 0px 50px;
+}
+
+/* ## END LIST ELEMENT STYLE ## */
