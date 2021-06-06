@@ -8,19 +8,17 @@
     
     --font-small: 18px;
     --font-medium: 22px;
+    --font-large: 40px;
 
     --spacing-small: 10px;
     --spacing-medium: 20px;
     --spacing-large: 40px;
 
-    --breakpoint-xs: 0px;
-    --breakpoint-sm: 0px;
-    --breakpoing-md: 0px;
-    --breakpoing-lg: 0px;
-    --breakpoing-xl: 0px;
-
     --image-size: 200px;
     --nav-width: 300px;
+    --nav-logo-height: 50px;
+
+    --max-width: 1200px;
 }
 
 body {
@@ -31,30 +29,125 @@ body {
     font-size: var(--font-small);
 }
 
+textarea:focus, input:focus{
+    outline: none;
+}
+
+input {
+    padding: 0;
+    font-size: var(--font-medium);
+    min-width: 0;
+}
+
 main {
     position: absolute;
     left: var(--nav-width);
     right: 0px;
     padding: var(--spacing-large);
 
-    max-width: 1200px;
+    max-width: var(--max-width);
     margin: auto;
 }
 
+main header {
+    display: flex;
+    flex-direction: row;
+
+    position: relative;
+}
+
+.title {
+    display: inline-block;
+    font-size: var(--font-large);
+    margin: 0;
+    flex-grow: 1;
+}
+
+button {
+    background-color: white;
+    color: var(--accent-color);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--accent-color);
+    border-radius: 8px;
+    padding: var(--spacing-small) var(--spacing-medium);
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+button.negative {
+    color: var(--font-color-hint);
+    border-color: var(--font-color-hint);
+}
+
+button.negative:hover {
+    color: white;
+    background-color: var(--font-color-hint);
+}
+
+.help {
+    margin: var(--spacing-small) 0;
+}
+
+.help-instructions {
+    display: none;
+    
+    position: absolute;
+    width: 200px;
+    height: auto;
+    right: 0%;
+    top: 105%;
+    text-align: justify;
+    font-size: var(--font-small);
+
+    z-index: 50;
+    border: 1px solid var(--accent-color);
+    padding: var(--spacing-medium);
+    border-radius: 8px;
+    background-color: #FEFEFE;
+}
+
+.help:active + .help-instructions {
+    display: block;
+}
 /* ## END GENERAL ## */
 
 /* ## NAV STYLE ## */
 nav {
     position: fixed;
+    top: 0;
+
     height: 100%;
     width: var(--nav-width);
+    max-width: 100vw;
 
     box-shadow: 0 0 14px 0 rgba(0,0,0,.1);
+    z-index: 100;
 }
 
 nav a {
     text-decoration: none;
     color: inherit;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+nav .hamburguer {
+    width: 32px;
+    height: 32px;
+    display: none;
+    cursor: pointer;
 }
 
 .nav-options {
@@ -78,8 +171,11 @@ nav a {
 
 .logo {
     padding-top: var(--spacing-medium);
-    margin: auto;
+    margin: 0;
     display: block;
+
+    width: auto;
+    height: var(--nav-logo-height);
 }
 /* ## NAV STYLE ## */
 
@@ -90,35 +186,12 @@ nav a {
 }
 
 .products-list {
-    max-width: 1200px;
+    max-width: var(--max-width);
     padding: 0;
 }
 /* ## END PRODUCT LIST ## */
 
 /* ## LIST ELEMENT STYLE ## */
-.product-container {
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    margin-bottom: var(--spacing-medium);
-}
-
-.product-container:last-child{
-    margin-bottom: 0px;
-}
-
-.product-container .product:first-child {
-    align-self: flex-start;
-}
-
-.product-container .product:last-child {
-    align-self: flex-end;
-}
-
-.product-container p {
-    margin: var(--spacing-small);
-}
-
 .product-image {
     width: var(--image-size);
     height: auto;
@@ -129,23 +202,286 @@ nav a {
     font-weight: bold;
 }
 
-.formula {
-    flex-grow: 1;
-    display: inherit; /*Parent: Flex*/
-    align-items: center;
+.product-description {
+    max-width: var(--image-size);
 }
 
 .formula-editor {
     flex-grow: 1;
     height: var(--image-size);
     border: 2px dotted var(--font-color-hint);
+    text-align: center;
 }
 
-.formula .arrow-right {
-    height: 75px;
+.arrow-right {
+    height: 55px;
     width: auto;
-
-    margin: 0px 50px;
+    margin: auto var(--spacing-large);
 }
 
+.product-container-grid {
+    display: grid;
+    grid-template-columns: var(--image-size) auto 1fr auto var(--image-size);
+    grid-template-rows: repeat(4, auto);
+
+    text-align: center;
+    margin-bottom: var(--spacing-large);
+}
+
+.product-container-grid p {
+    margin: 0;
+    margin-bottom: var(--spacing-small);
+}
+
+.buttons {
+    grid-column: 3;
+    grid-row: 4;
+    margin-top: var(--spacing-small);
+}
+
+.product-description.original{
+    grid-row: 1;
+    grid-column: 1;
+}
+
+.product-description.modified {
+    grid-row: 1;
+    grid-column: 5;
+}
+
+.product-image.original {
+    grid-row: 2;
+    grid-column: 1;
+}
+
+.product-image.modified {
+    grid-row: 2;
+    grid-column: 5;
+}
+
+.product-price.modified {
+    grid-row: 4;
+    grid-column: 5;
+}
+
+.product-price.original {
+    grid-row: 4;
+    grid-column: 1;
+}
+
+.label.formula {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.label.original {
+    grid-row: 3;
+    grid-column: 1;
+}
+
+.label.modified {
+    grid-row: 3;
+    grid-column: 5;
+}
+
+.arrow-right.first {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.arrow-right.second {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.formula-editor {
+    grid-column: 3;
+    grid-row: 2;
+}
 /* ## END LIST ELEMENT STYLE ## */
+
+/* ## RESPONSIVE ## */
+@media screen and (max-width: 1200px) {
+    :root {
+        --font-small: 16px;
+        --font-medium: 20px;
+        --font-large: 26px;
+
+        --spacing-small: 10px;
+        --spacing-medium: 15px;
+        --spacing-large: 25px;
+
+        --nav-logo-height: 35px;
+
+        --max-width: 100%;
+    }
+
+    nav {
+        width: 100%;
+        height: auto;
+        background: white;
+    }
+
+    nav .nav-options {
+        display: none;
+        margin: 0;
+        border-top: 1px solid var(--font-color-hint);
+    }
+
+    nav .hamburguer {
+        display: block;
+        position: absolute;
+        
+        right: var(--spacing-medium);
+        top: calc((var(--nav-logo-height) / 2));
+    }
+
+    .logo {
+        padding: var(--spacing-medium) 0;
+    }
+
+    main {
+        top: calc(var(--nav-logo-height) + (2 * var(--spacing-medium)));
+        left: 0;
+        padding-top: var(--spacing-medium);
+    }
+}
+
+@media screen and (max-width: 992px) {
+    :root {
+        --font-small: 16px;
+        --font-medium: 20px;
+        --font-large: 26px;
+
+        --spacing-small: 10px;
+        --spacing-medium: 15px;
+        --spacing-large: 25px;
+    }
+
+    .product-container-grid {
+        grid-template-columns: var(--image-size) var(--image-size) 1fr;
+        grid-template-rows: repeat(5, calc(var(--image-size) / 5));
+        grid-auto-rows: min-content;
+    }
+
+    .product-description.original {
+        grid-column: 2;
+        font-weight: bold;
+    }
+
+    .label.original {
+        grid-row: 2;
+        grid-column: 2;
+    }
+
+    .product-price.original {
+        grid-row: 3;
+        grid-column: 2;
+    }
+
+    .label.modified {
+        grid-row: 4;
+        grid-column: 2;
+    }
+
+    .product-price.modified {
+        grid-row: 5;
+        grid-column: 2;
+    }
+
+    .label.formula {
+        grid-column: 3;
+        grid-row: 1;
+        font-weight: bold;
+    }
+
+    .formula-editor {
+        grid-row: 2/5;
+        grid-column: 3;
+        height: auto;
+        font-size: var(--font-small);
+    }
+
+    .product-image.original {
+        grid-column: 1;
+        grid-row: 1/5;
+    }
+
+    .arrow-right, .product-image.modified, .product-description.modified {
+        display: none;
+    }
+
+    .buttons {
+        grid-row: 5;
+        grid-column: 3;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    :root {
+        --font-small: 16px;
+        --font-medium: 20px;
+        --font-large: 26px;
+
+        --spacing-small: 10px;
+        --spacing-medium: 15px;
+        --spacing-large: 20px;
+
+        --nav-logo-height: 35px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    :root {
+        --font-small: 12px;
+        --font-medium: 14px;
+        --font-large: 18px;
+
+        --image-size: 100px;
+        --nav-logo-height: 30px;
+
+        --spacing-small: 5px;
+        --spacing-medium: 10px;
+        --spacing-large: 15px;
+    }
+
+    .product-price {
+        font-size: var(--font-small);
+    }
+
+    input {
+        font-size: vaR(--font-small);
+    }
+
+    nav .hamburguer {
+        width: 24px;
+        height: 24px;
+        
+        right: var(--spacing-large);
+    }
+
+    .help {
+        padding: 4px;
+        margin: 0;
+    }
+
+    .formula-editor {
+        border-width: 1px;
+        grid-row: 2/4;
+    }
+
+    .buttons {
+        grid-row: 4/5;
+        margin-top: var(--spacing-small);
+    }
+
+    .buttons button {
+        font-size: 10px;
+    }
+
+    button {
+        padding: 4px;
+        border-radius: 4px;
+    }
+}
+/* ## END RESPONSIVE ## */

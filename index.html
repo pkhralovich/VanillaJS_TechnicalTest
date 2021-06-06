@@ -12,14 +12,20 @@
         <title>NetRivals Challenge</title>
     
         <link rel="icon" href="https://www.netrivals.com/wp-content/uploads/2020/11/IMAGO-70x70.png" sizes="32x32">
+    
+        <script src="js/index.js"></script>
     </head>
 
     <body>
         <nav>
-            <a href="https://www.netrivals.com">
-                <img class="logo" src="https://www.netrivals.com/wp-content/uploads/2020/11/logo-positiu-1-1.png" width="175" height="auto"/>
-            </a>
-            <ul class="nav-options">
+            <div class="nav-header">
+                <a href="https://www.netrivals.com">
+                    <img class="logo" src="https://www.netrivals.com/wp-content/uploads/2020/11/logo-positiu-1-1.png"/>
+                </a>
+                <img id="hamburguer" class="hamburguer" src="images/hamburguer.svg"/>
+            </div>  
+            
+            <ul id="nav-options" class="nav-options">
                 <li class="nav-option">
                     <a href="#">My products</a>
                 </li>
@@ -37,98 +43,43 @@
         
         <main>
             <header> 
-                <h1> Apply price formula to my products </h1>
+                <h1 class="title"> Apply price formula to my products </h1>
+                <button class="help"> Help </button>
+                <div class="help-instructions">
+                    This page allows you to apply a formula to an original price of a product. Please, use ONLY standard mathematical 
+                    symbols (*, /, - or +) and $price as a placeholder.
+                </div>
             </header>
 
             <section>
                 <p class="page-label"> Showing 1 of 10 </p>
                 
                 <ul class="products-list">
-                    <li class="product-container">
+                    <li class="product-container-grid">
                         <!-- ORIGINAL PRODUCT -->
-                        <div class="product original-product">
-                            <p class="product-description"> Smarty Watch </p>
-                            <img class="product-image" src="uploads/product1.png">
-                            <p class="label"> Original price </p>
-                            <p class="product-price"> 45 € </p>
-                        </div>
+                        <p class="product-description original"> Smarty Watch </p>
+                        <img class="product-image original" src="uploads/product1.png">
+                        <p class="label original"> Original price </p>
+                        <p class="product-price original"> 45 € </p>
                         
                         <!-- FORMULA -->
-                        <div class="formula">
-                            <img class="arrow-right" src="images/arrow-right.svg">
-                            
-                            <div class="formula-editor">
+                        <p class="label formula">Formula</p>
+                        <img class="arrow-right first" src="images/arrow-right.svg">
+                        <input type="text" class="formula-editor" placeholder="$price * 2"/>
+                        <img class="arrow-right second" src="images/arrow-right.svg">
 
-                            </div>
+                        <div class="buttons">
+                            <button hidden>Edit</button>
 
-                            <img class="arrow-right" src="images/arrow-right.svg">
+                            <button class="negative">Cancel</button>
+                            <button>Save</button>
                         </div>
 
                         <!-- MODIFIED PRODUCT -->
-                        <div class="product modified-product">
-                            <p class="product-description"> Smarty Watch </p>
-                            <img class="product-image" src="uploads/product1.png">
-                            <p class="label"> Modified price </p>
-                            <p class="product-price"> 45 € </p>
-                        </div>
-                    </li>
-
-                    <li class="product-container">
-                        <!-- ORIGINAL PRODUCT -->
-                        <div class="product original-product">
-                            <p class="product-description"> Smarty Watch </p>
-                            <img class="product-image" src="uploads/product1.png">
-                            <p> Original price </p>
-                            <p class="product-price"> 45 € </p>
-                        </div>
-                        
-                        <!-- FORMULA -->
-                        <div class="formula">
-                            <img class="arrow-right" src="images/arrow-right.svg">
-                            
-                            <div class="formula-editor">
-
-                            </div>
-
-                            <img class="arrow-right" src="images/arrow-right.svg">
-                        </div>
-
-                        <!-- MODIFIED PRODUCT -->
-                        <div class="product modified-product">
-                            <p class="product-description"> Smarty Watch </p>
-                            <img class="product-image" src="uploads/product1.png">
-                            <p> Original price </p>
-                            <p class="product-price"> 45 € </p>
-                        </div>
-                    </li>
-
-                    <li class="product-container">
-                        <!-- ORIGINAL PRODUCT -->
-                        <div class="product original-product">
-                            <p class="product-description"> Smarty Watch </p>
-                            <img class="product-image" src="uploads/product1.png">
-                            <p> Original price </p>
-                            <p class="product-price"> 45 € </p>
-                        </div>
-                        
-                        <!-- FORMULA -->
-                        <div class="formula">
-                            <img class="arrow-right" src="images/arrow-right.svg">
-                            
-                            <div class="formula-editor">
-
-                            </div>
-
-                            <img class="arrow-right" src="images/arrow-right.svg">
-                        </div>
-
-                        <!-- MODIFIED PRODUCT -->
-                        <div class="product modified-product">
-                            <p class="product-description"> Smarty Watch </p>
-                            <img class="product-image" src="uploads/product1.png">
-                            <p> Original price </p>
-                            <p class="product-price"> 45 € </p>
-                        </div>
+                        <p class="product-description modified"> Smarty Watch </p>
+                        <img class="product-image modified" src="uploads/product1.png">
+                        <p class="label modified"> Modified price </p>
+                        <p class="product-price modified"> 45 € </p>
                     </li>
                 </ul>
             </section>
