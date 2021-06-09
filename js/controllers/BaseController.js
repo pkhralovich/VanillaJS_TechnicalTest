@@ -7,8 +7,8 @@ export default class BaseController {
 
     endpoint() {
         //return "https://run.mocky.io/v3/2e50b034-7372-41ef-9636-fb64d5330421"; //8000 products (not able to mock a bigger call with mocky)
-        //return "https://run.mocky.io/v3/dd815968-9134-4734-9f19-bea5b7bb902e"; //1000 products
-        return "https://run.mocky.io/v3/22eb05a8-9650-450e-90a4-366567e2c088"; //10 products
+        return "https://run.mocky.io/v3/dd815968-9134-4734-9f19-bea5b7bb902e"; //1000 products
+        //return "https://run.mocky.io/v3/22eb05a8-9650-450e-90a4-366567e2c088"; //10 products
     }
 
     /**

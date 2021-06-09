@@ -1,6 +1,7 @@
 /* ## GENERAL ## */
 :root {
     --accent-color: #22BA93;
+    --error-color: #E63334;
 
     --font-color: #0D2232;
     --font-color-hint: #d3d3d3;
@@ -227,6 +228,10 @@ nav .hamburguer {
 
 .formula-editor.editable {
     border: 2px solid var(--font-color);
+}
+
+.formula-editor.invalid {
+    border: 2px solid var(--error-color);
 }
 
 .arrow-right {

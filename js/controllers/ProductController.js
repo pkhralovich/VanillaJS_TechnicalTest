@@ -32,7 +32,7 @@ export default class ProductController extends BaseController {
             //No API available. Mock some kind of persistence with localStorage.
             //TODO: Remove localStorage use with a real API.
             
-            let products = localStorage.getItem("products");
+            let products = JSON.parse(localStorage.getItem("products"));
             let index = products.findIndex(item => item.id == product.id);
 
             if (index >= 0) {

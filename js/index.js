@@ -17,7 +17,7 @@ let productController;
 
 window.onload = function() {
     //Uncomment to clear persistance
-    //localStorage.clear();
+    localStorage.clear();
 
     list = document.getElementById(LIST_ID);
     listCaption = document.getElementById(LIST_CAPTION_ID);

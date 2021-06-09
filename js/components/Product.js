@@ -1,3 +1,5 @@
+import ProductController from "../controllers/ProductController.js";
+
 export default class Product {
 
     /**
@@ -39,10 +41,10 @@ export default class Product {
                     <img class="arrow-right second" src="images/arrow-right.svg">
 
                     <div class="buttons">
-                        <button class="edit" onclick="editFormula('${this.data.id}')">Edit</button>
+                        <button class="edit">Edit</button>
 
-                        <button class="cancel negative" onclick="cancelModification('${this.data.id}')" hidden>Cancel</button>
-                        <button class="save" onclick="saveFormula('${this.data.id}')" hidden>Save</button>
+                        <button class="cancel negative" hidden>Cancel</button>
+                        <button class="save" hidden>Save</button>
                     </div>
 
                     <!-- MODIFIED PRODUCT -->
@@ -83,8 +85,6 @@ export default class Product {
     }
 
     onClickSave() {
-        this.setButtonsVisibility(false);
-        this.setInputStatus(false);
         this.saveFormula();
     }
 
@@ -95,10 +95,16 @@ export default class Product {
      */
     formatPrice(isOriginal) {
         if (this.data.price) {
-            if (isOriginal) return `${this.data.price.toFixed(this.config.decimal_places)} ${this.config.currency} `;
+            if (isOriginal || !this.data.formula) return `${this.data.price.toFixed(this.config.decimal_places)} ${this.config.currency} `;
             else {
-                 //TODO: Apply formula
-                return `${this.data.price.toFixed(this.config.decimal_places)} ${this.config.currency} `;
+                 try {
+                    let newPrice = math.evaluate(this.data.formula, { "$price": this.data.price });
+                    return `${newPrice.toFixed(this.config.decimal_places)} ${this.config.currency} `;
+                    
+                 } catch(error) {
+                     return "Unable to evaluate formula";
+                 }
+                
             }
         }
         else return "";
@@ -151,9 +157,46 @@ export default class Product {
         this.input.value = this.getFormula();
     }
 
-
+    /**
+     * Validates and stores the formula entered by the user
+     * @memberof Product
+     */
     saveFormula() {
-        //TODO: Validate and store the formula
+        try {
+            //Simple manual validation. Check if valid characters and placeholder used.
+            const regex = /[\/*-+($price)\d\.]*/gm;
+            if (!regex.test(this.input.value)) throw new Error("Regex not fullfilled");
+
+            //External library validation. Checks the expression syntactically.
+            math.parse(this.input.value);
+
+            //If both validations are OK, save the new formula
+            this.data.formula = this.input.value;
+
+            let controller = new ProductController();
+            controller.save(this.data, this.onSaveSuccess.bind(this), this.onSaveError.bind(this));
+        } catch(error) {
+            this.input.classList.add("invalid");
+            this.input.setCustomValidity("Invalid format. Please only use $price and mathematical symbols.");
+            this.input.reportValidity();
+        }
+    }
+
+    /**
+     * Handles a valid API response
+     * @memberof Product
+     */
+    onSaveSuccess() {
         this.build(this.element.parentElement);
+    }
+
+    /**
+     * Handles an invalid API response
+     * @memberof Product
+     */
+    onSaveError() {
+        this.input.classList.add("invalid");
+            this.input.setCustomValidity("Ups... We were unable to store your formula. Please, try again!");
+            this.input.reportValidity();
     }
 }
