@@ -13,6 +13,9 @@ Some of the requirements were:
 
 No API description or endpoints were given, so I decided to make some assumptions for being able to deliver something similar to a real use case.
 
+Finally, I didn't apply exhaustive testing, so some errors may appear.
+
+
 **The time spent for the entire development was about 12-14 hours** 
 
 ## Assumptions taken
@@ -47,5 +50,4 @@ Some of the steps that might be done to improve the work are:
   - Use HTML to show in a better way the formula validation errors.
   - Implement pagination or some alternative system for performance issues with long lists.
   - Allow the user to configure the currency and the decimal places, which configuration is already supported by the component.
-  - Improve the help dialog box. Now it's really annoying for the user.
-
+  - Improve the help dialogue box. Now it's annoying for the user.
