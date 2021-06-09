@@ -164,7 +164,7 @@ export default class Product {
     saveFormula() {
         try {
             //Simple manual validation. Check if valid characters and placeholder used.
-            const regex = /[\/*-+($price)\d\.]*/gm;
+            const regex = /[\/*-+($price)\d\.\(\)]*/gm;
             if (!regex.test(this.input.value)) throw new Error("Regex not fullfilled");
 
             //External library validation. Checks the expression syntactically.
