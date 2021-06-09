@@ -47,4 +47,5 @@ Some of the steps that might be done to improve the work are:
   - Use HTML to show in a better way the formula validation errors.
   - Implement pagination or some alternative system for performance issues with long lists.
   - Allow the user to configure the currency and the decimal places, which configuration is already supported by the component.
+  - Improve the help dialog box. Now it's really annoying for the user.
 
