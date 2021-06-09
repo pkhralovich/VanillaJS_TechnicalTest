@@ -20,6 +20,8 @@ Finally, I didn't apply exhaustive testing, so some errors may appear.
 
 ## Assumptions taken
 
+First of all, I asume that support old browsers like IE is not necessary.
+
 I decided to create a mock API with several endpoints. Each one of the endpoints has a different amount of products, going from 10 to 8000. The target was to be able to test the performance of the component. Obviously, in a real environment where the performance is imperative, I should've implemented pagination or some other alternative. 
 
 Also, to be able to persist the changes made to the formulas I decided to use localStorage through a Controller class, hiding the logic to the component. This allows replacing the localStorage for an API call without having to change the component.
