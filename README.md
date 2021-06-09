@@ -13,6 +13,8 @@ Some of the requirements were:
 
 No API description or endpoints were given, so I decided to make some assumptions for being able to deliver something similar to a real use case.
 
+**The time spent for the entire development was about 12-14 hours** 
+
 ## Assumptions taken
 
 I decided to create a mock API with several endpoints. Each one of the endpoints has a different amount of products, going from 10 to 8000. The target was to be able to test the performance of the component. Obviously, in a real environment where the performance is imperative, I should've implemented pagination or some other alternative. 
