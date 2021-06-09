@@ -13,7 +13,8 @@
     
         <link rel="icon" href="https://www.netrivals.com/wp-content/uploads/2020/11/IMAGO-70x70.png" sizes="32x32">
     
-        <script src="js/index.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="module" src="js/index.js"></script>
     </head>
 
     <body>
@@ -52,35 +53,16 @@
             </header>
 
             <section>
-                <p class="page-label"> Showing 1 of 10 </p>
+                <p id="list-caption" class="list-caption" hidden> Showing 1 of 10 </p>
                 
-                <ul class="products-list">
-                    <li class="product-container-grid">
-                        <!-- ORIGINAL PRODUCT -->
-                        <p class="product-description original"> Smarty Watch </p>
-                        <img class="product-image original" src="uploads/product1.png">
-                        <p class="label original"> Original price </p>
-                        <p class="product-price original"> 45 € </p>
-                        
-                        <!-- FORMULA -->
-                        <p class="label formula">Formula</p>
-                        <img class="arrow-right first" src="images/arrow-right.svg">
-                        <input type="text" class="formula-editor" placeholder="$price * 2"/>
-                        <img class="arrow-right second" src="images/arrow-right.svg">
+                <div id="loading-container">
+                    <img class="loading visible" src="images/loading.svg">
+                    <p class="list-message"> Please, wait while we load the content... </p>
+                </div>
+                
 
-                        <div class="buttons">
-                            <button hidden>Edit</button>
-
-                            <button class="negative">Cancel</button>
-                            <button>Save</button>
-                        </div>
-
-                        <!-- MODIFIED PRODUCT -->
-                        <p class="product-description modified"> Smarty Watch </p>
-                        <img class="product-image modified" src="uploads/product1.png">
-                        <p class="label modified"> Modified price </p>
-                        <p class="product-price modified"> 45 € </p>
-                    </li>
+                <ul id="products-list" class="products-list">
+                    
                 </ul>
             </section>
         </main>

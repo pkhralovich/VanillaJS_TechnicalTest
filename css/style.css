@@ -115,6 +115,20 @@ button.negative:hover {
 .help:active + .help-instructions {
     display: block;
 }
+
+.loading {
+    display: block;
+    width: 20%;
+    height: auto;
+    margin: auto;
+    margin-top: 15%;
+}
+
+.list-message {
+    color: var(--font-color-hint);
+    font-size: var(--font-medium);
+    text-align: center;
+}
 /* ## END GENERAL ## */
 
 /* ## NAV STYLE ## */
@@ -178,9 +192,7 @@ nav .hamburguer {
     height: var(--nav-logo-height);
 }
 /* ## NAV STYLE ## */
-
-/* ## PRODUCT LIST ## */
-.page-label {
+.list-caption {
     color: var(--font-color-hint);
     margin: 0;
 }
