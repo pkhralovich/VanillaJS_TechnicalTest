@@ -12,13 +12,20 @@ export default class Product {
         if (!data) throw "Missing component data";
 
         this.data = data;
+        this.element = undefined;
+
+        this.input = undefined;
+        this.saveButton = undefined;
+        this.cancelButton = undefined;
+        this.editButton = undefined;
 
         if (config) this.config = config;
         else this.config = { currency: "€", decimal_places: 2 }
     }
 
-    build() {
-        return `<li id="${this.data.id}" class="product-container-grid">
+    build(parent) {
+        let parser = new DOMParser();
+        let html = `<li id="product_${this.data.id}" class="product-container-grid">
                     <!-- ORIGINAL PRODUCT -->
                     <p class="product-description original"> ${this.data.description} </p>
                     <img class="product-image original" src="${this.data.picture}">
@@ -28,14 +35,14 @@ export default class Product {
                     <!-- FORMULA -->
                     <p class="label formula">Formula</p>
                     <img class="arrow-right first" src="images/arrow-right.svg">
-                    <input type="text" class="formula-editor" placeholder="$price * 2" value="${this.data.formula ? this.data.formula : "N/D"}"/>
+                    <input type="text" class="formula-editor" placeholder="$price * 2" value="${this.getFormula()}" readonly/>
                     <img class="arrow-right second" src="images/arrow-right.svg">
 
                     <div class="buttons">
-                        <button onclick="editFormula('${this.data.id}')">Edit</button>
+                        <button class="edit" onclick="editFormula('${this.data.id}')">Edit</button>
 
-                        <button class="negative" onclick="cancelModification('${this.data.id}')" hidden>Cancel</button>
-                        <button onclick="saveFormula('${this.data.id}')" hidden>Save</button>
+                        <button class="cancel negative" onclick="cancelModification('${this.data.id}')" hidden>Cancel</button>
+                        <button class="save" onclick="saveFormula('${this.data.id}')" hidden>Save</button>
                     </div>
 
                     <!-- MODIFIED PRODUCT -->
@@ -44,13 +51,109 @@ export default class Product {
                     <p class="label modified"> Modified price </p>
                     <p class="product-price modified"> ${this.formatPrice(false)} </p>
                 </li>`;
+
+        let oldElement = this.element;
+        this.element = parser.parseFromString(html, 'text/html').body.firstChild;
+
+        this.input = this.element.querySelector("input.formula-editor");
+
+        let baseSelector = `.buttons`
+        this.editButton = this.element.querySelector(baseSelector + " .edit");
+        this.editButton.addEventListener("click", this.onClickEdit.bind(this));
+        
+        this.cancelButton = this.element.querySelector(baseSelector + " .cancel");
+        this.cancelButton.addEventListener("click", this.onClickCancel.bind(this));
+
+        this.saveButton = this.element.querySelector(baseSelector + " .save");
+        this.saveButton.addEventListener("click", this.onClickSave.bind(this));
+
+        if (oldElement) parent.replaceChild(this.element, oldElement);
+        else parent.appendChild(this.element);
     }
 
+    onClickEdit() {
+        this.setButtonsVisibility(true);
+        this.setInputStatus(true);
+    }
+
+    onClickCancel() {
+        this.setButtonsVisibility(false);
+        this.setInputStatus(false);
+        this.cancelModification();
+    }
+
+    onClickSave() {
+        this.setButtonsVisibility(false);
+        this.setInputStatus(false);
+        this.saveFormula();
+    }
+
+    /**
+     * @param {*} isOriginal Tells if the price is the original or not
+     * @returns
+     * @memberof Product
+     */
     formatPrice(isOriginal) {
         if (this.data.price) {
-            //Check if is original or not
-            return `${this.data.price.toFixed(this.config.decimal_places)} ${this.config.currency} `;
+            if (isOriginal) return `${this.data.price.toFixed(this.config.decimal_places)} ${this.config.currency} `;
+            else {
+                 //TODO: Apply formula
+                return `${this.data.price.toFixed(this.config.decimal_places)} ${this.config.currency} `;
+            }
         }
         else return "";
+    }
+
+    /**
+     * @returns The formula in user format
+     * @memberof Product
+     */
+    getFormula() {
+        return this.data.formula ? this.data.formula : "N/D";
+    }
+
+    /**
+     * Sets the formula input status according with the current status
+     * @param {*} productId Id of the product affected
+     * @param {*} editing Current status
+     */
+    setInputStatus(editing) {
+        this.input.readOnly = !editing;
+
+        if(editing) this.input.classList.add("editable");
+        else this.input.classList.remove("editable");
+
+        if (this.input.value === "N/D") this.input.value = "";
+    }
+
+    /**
+     * Sets the visibility of the buttons associated to one product according with the current status
+     * @param {*} productId Id of the product
+     * @param {*} editing Current status
+     */
+    setButtonsVisibility(editing) {
+        if (editing) {
+            this.editButton.style.display = "none";
+            this.cancelButton.style.display = "inline-block";
+            this.saveButton.style.display = "inline-block";
+        } else {
+            this.editButton.style.display = "inline-block";
+            this.cancelButton.style.display = "none";
+            this.saveButton.style.display = "none";
+        }
+    }
+
+    /**
+     * Cancels the modification of the formula
+     * @memberof Product
+     */
+    cancelModification() {
+        this.input.value = this.getFormula();
+    }
+
+
+    saveFormula() {
+        //TODO: Validate and store the formula
+        this.build(this.element.parentElement);
     }
 }

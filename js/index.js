@@ -17,7 +17,7 @@ let productController;
 
 window.onload = function() {
     //Uncomment to clear persistance
-    localStorage.clear();
+    //localStorage.clear();
 
     list = document.getElementById(LIST_ID);
     listCaption = document.getElementById(LIST_CAPTION_ID);
@@ -29,6 +29,9 @@ window.onload = function() {
     productController.getAll(onGetSuccess, onGetError);
 }
 
+/**
+ * Function that handles a click on the hamburguer menu icon
+ */
 function onClickMenu() {
     if (!navOptions) navOptions = document.getElementById(NAV_ID);
 
@@ -36,19 +39,18 @@ function onClickMenu() {
     else navOptions.style.display = "none";
 }
 
+/**
+ * Handles a valid response from the API
+ * @param {*} response HTTP response. At least has status and data.
+ */
 function onGetSuccess(response) {
     try {
-        document.getElementById(LOADING_ID).style.display = "none";
-        
         if (response.status == 200 && response.data) {
             list.innerHTML = "";
-    
-            var parser = new DOMParser();
+
             response.data.forEach(p => {
                 let component = new Product(p);
-                let html = component.build();
-                let element = parser.parseFromString(html, 'text/html');
-                list.appendChild(element.body);
+                component.build(list);
             });
 
             listCaption.innerText = `Showing ${response.data.length} of ${response.data.length}`;
@@ -59,22 +61,15 @@ function onGetSuccess(response) {
     } catch (error) {
         list.innerHTML = "<p class='list-message'> Ups... Something went wrong. </p>"
     }
-    
+
+    document.getElementById(LOADING_ID).style.display = "none";
 }
 
+/**
+ * Handles an error durint an API call
+ * @param {*} error
+ */
 function onGetError(error) {
     document.getElementById("loading-container").style.display = "none";
     list.innerHTML = "<p class='list-message'> Ups... Something went wrong. </p>"
-}
-
-window.editFormula = function(product) {
-    alert("editing");
-}
-
-window.cancelModification = function(product) {
-    alert("cancelling");
-}
-
-window.saveFormula = function(product) {
-    alert("saving");
 }

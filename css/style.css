@@ -171,9 +171,9 @@ nav .hamburguer {
 }
 
 .nav-option {
-    -webkit-transition: all .3s;
+    /*-webkit-transition: all .3s;
     -o-transition: all .3s;
-    transition: all .3s;
+    transition: all .3s;*/
 
     padding: var(--spacing-small) var(--spacing-medium);
 }
@@ -223,6 +223,10 @@ nav .hamburguer {
     height: var(--image-size);
     border: 2px dotted var(--font-color-hint);
     text-align: center;
+}
+
+.formula-editor.editable {
+    border: 2px solid var(--font-color);
 }
 
 .arrow-right {
